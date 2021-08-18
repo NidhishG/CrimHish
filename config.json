@@ -1,0 +1,17 @@
+{
+  "token": "ODcwMDMzMjYyNzAwMDE5NzEy.YQG3ng.8uoRXOhS-3rdOdmpyQv8xyvpqTw",
+  "mongoURI": "mongodb+srv://Nidhish:hype-v2@cluster0.cbgjs.mongodb.net/test",
+  "giveawayRole": "Giveaway Manager",
+  "everyoneMention": false,
+  "hostedBy": true,
+  "botsCanWin": false,
+
+  "embedColor": "ff0000",
+  "embedColorEnd": "GREEN",
+  "reaction": "🎉",
+  "giveawayEmoji": "🎉",
+  
+  "botName": "CrimHish | Ends at",
+  "author": "Nidhish"
+
+}
