@@ -1,6 +1,4 @@
 {
-  "token": "ODcwMDMzMjYyNzAwMDE5NzEy.YQG3ng.7vI6T1U7iY6tasBiHCSXRRdzmYM",
-  "mongoURI": "mongodb+srv://Nidhish:hype-v2@cluster0.cbgjs.mongodb.net/test",
   "giveawayRole": "Giveaway Manager",
   "everyoneMention": false,
   "hostedBy": true,

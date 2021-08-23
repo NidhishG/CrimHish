@@ -23,7 +23,7 @@ client.discordTogether = new DiscordTogether(client);
 const L = require('./models/levelling')
 const random = require('random')
 require('./lineReply')
-Levels.setURL(config.mongoURI)
+Levels.setURL(process.env.mongoURI)
 client.config = require('./config')
 client.commands = new Discord.Collection();
 client.snipes = new Discord.Collection();
@@ -33,14 +33,14 @@ module.exports = client;
   require(path.resolve(`handlers/${handler}`))(client)
 })
 
-mongoose.connect(config.mongoURI, {
+mongoose.connect(process.env.mongoURI, {
   useFindAndModify: false,
   useUnifiedTopology: true,
   useNewUrlParser: true
 }).then(console.log('connected to mongoDB'))
 
 Nuggies.handleInteractions(client)
-Nuggies.connect(config.mongoURI)
+Nuggies.connect(process.env.mongoURI)
 
 client.on('clickButton', async(button) => { 
    simplydjs.clickBtn(button, {
@@ -314,4 +314,4 @@ client.on('guildMemberAdd', async member => {
 })
 
 //keepAlive()
-client.login(config.token)
+client.login(process.env.token)
