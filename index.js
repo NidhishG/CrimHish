@@ -141,26 +141,29 @@ client.on('message', async message =>{
           return;
         } else {
             if(message.author.bot) return
-            const body = await axios.get(`https://crimhishapi.glitch.me/v1/fun/chatbot?message=${message.content}&botname=CrimHish&ownername=Nidhish`) 
+            const body = await axios.get(`https://api.affiliateplus.xyz/api/chatbot?message=${message.content}&botname=CrimHish&ownername=Crimson,Nidhish,Cuber,Vlad&user=1`) 
 
             const res = body.data
-            message.lineReply(res.message)
+            message.lineReply(`${res.message}`)
               const requests = data.count
           data.count = requests + 1
           data.save();
         }
       })
     }
-            const invhas = await antiinvs.findOne({ guild: message.guild.id })
+})
+client.on('message', async message => {
+     const invhas = await antiinvs.findOne({ guild: message.guild.id })
 if (!invhas) {
   return;
 } else{
+  const chan = await db.fetch(`antiinvchannel_${message.guild.id}`) 
         antiinvs.findOne({
     guild: message.guild.id
   }, async (err, data) => {
     if (err) throw err;
-let link = ["discord.gg", "discord.com/invite", '.gg/', 'discord.gg/']
-
+let link = ["discord.gg", "discord.com/invite", '.gg/', 'discord.gg/', 'discord.app']
+if(message.channel.id === chan) return
 if(link.some(word => message.content.toLowerCase().includes(word))) {
 await message.delete();
 return message.reply('You are not allowed to send invite links')
@@ -169,6 +172,21 @@ return message.reply('You are not allowed to send invite links')
 }
 )}
 
+})
+
+client.on('message', async message =>{
+    if(db.has(`afk_${message.author.id}_${message.guild.id}`)) {
+        const oldReason = db.get(`afk_${message.author.id}_${message.guild.id}`)
+        await db.delete(`afk_${message.author.id}_${message.guild.id}`)
+        message.channel.send(`I have removed your afk for \`${oldReason}\``)
+    }
+    if(message.mentions.members.first()) {
+        if(db.has(`afk_${message.mentions.members.first().id}_${message.guild.id}`)) {
+            const lolreason = db.get(`afk_${message.mentions.members.first().id}_${message.guild.id}`)
+
+            message.channel.send(`${message.mentions.members.first().user.tag} is afk for \`${lolreason}\`` )
+        }
+     }
 })
 
 //guild join logs
@@ -295,5 +313,5 @@ client.on('guildMemberAdd', async member => {
 
 })
 
-keepAlive()
+//keepAlive()
 client.login(config.token)

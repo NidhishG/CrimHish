@@ -1,13 +1,13 @@
 const schema = require('../../models/antiinvite')
 const { MessageEmbed } = require('discord.js')
-
+const db = require('quick.db')
 module.exports = {
   name: 'antiinvite',
   aliases: ['antiinv'],
   description: 'enables/disables anti invite for a server',
   async run(client, message, args) {
       if(!message.member.permissions.has('BAN_MEMBERS')) return message.reply('Mods would hate me if I allowed you to access this command without permissions.')
-    if(!args[0]) return message.reply('Please mention `!antiinvite on` or `!antiinvite off`')
+    if(!args[0]) return message.reply('Please mention `!antiinvite on` or `!antiinvite off`. \n If you would like the bot to ignore antiinvite in a channel, do `!antiinvite channel <channel>`')
     if(args[0] === 'on'){
 await schema.findOne({
             guild: message.guild.id
@@ -47,6 +47,11 @@ await schema.findOne({
             message.channel.send('No data found in this server for anti invite.')
             }
         })
+        } else if(args[0] === 'channel'){
+          const ch = message.mentions.channels.first()
+          if(!ch) return message.reply('Please mention a channel to whitelist from antiinvite')
+          await db.set(`antiinvchannel_${message.guild.id}`, ch.id)
+          message.channel.send('I will ignore invites in that channel')
         }      
     }
     
